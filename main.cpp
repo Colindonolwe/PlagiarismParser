@@ -2,6 +2,7 @@
 #include <fstream>
 #include <string>
 #include <cctype>
+// #include <QRegExp>
 
 bool isprecomment(char symb) {
     if (symb == '/') {
@@ -37,6 +38,7 @@ bool isend(char symb) {
     }
     return false;
 }
+
 
 void delete_till_end(std::istream &file) {
     char symbol;
@@ -97,7 +99,16 @@ enum States {
 };
 
 
-int main() {
+// void tokenizer() {
+//     f3.open(filename3);
+//     if (!f3) {
+//         std::cout << "Unable to open file 3";
+//         exit(1);
+//     }
+//     QString str = "\0";
+// }
+
+int main(int argc, char *argv[]) {
     // std::ios_base::sync_with_stdio(false);
     // std::cin.tie(nullptr);
     std::ifstream f1, f2;
@@ -105,9 +116,16 @@ int main() {
     char symbol1, symbol2;
     int64_t num_numatches = 0;
     std::string comm1, comm2, filename1, filename2, filename3;
-    filename1 = "/Users/albinaakhmetgareeva/documents/магистратура/cpp/friuts.cpp";
-    filename2 = "/Users/albinaakhmetgareeva/documents/магистратура/cpp/friuts_comm.cpp";
-    filename3 = "/Users/albinaakhmetgareeva/documents/магистратура/cpp/friuts_orig.cpp";
+    if (argc == 4) {
+        filename1 = argv[1];
+        filename2 = argv[2];
+        filename3 = argv[3];
+    } else if (argc == 3){
+        filename1 = argv[1];
+        filename2 = argv[2];
+        filename3 = "orig.cpp";
+    }
+    
     f1.open(filename1);
     if (!f1) {
         std::cout << "Unable to open file 1";
@@ -218,5 +236,8 @@ int main() {
     f1.close();
     f2.close();
     f3.close();
+    // tokenizer();
+    
     return 0;
 }
+
